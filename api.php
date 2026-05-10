@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
 header('HTTP/1.1 200 OK');
+include_once('services/error_service.php');
 $url = $_SERVER['REQUEST_URI'];
 $reqPayload = explode("/",trim($url,"/"));
 $method = $_SERVER['REQUEST_METHOD'];
@@ -71,11 +72,4 @@ switch ($endpoint) {
       break;
 }
 die();
-
-function sendError($message, $method, $code) {
-   http_response_code($code);
-   $resArr = array("status"=>"Error", "message" => $message,"data"=>"", "method"=>$method);
-   $res = json_encode($resArr);
-   echo $res;
-}
 ?>

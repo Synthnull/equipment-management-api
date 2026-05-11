@@ -23,11 +23,12 @@ function query($sql, $method) {
 
    if($method == "GET") {
       $res = $result->fetch_all(MYSQLI_ASSOC);
+      #free mysql connection
+      $result->free();
    } else {
-      $res = $dblink->insert_id; 
+      $res = $dblink->insert_id;
    }   
-   #free mysql connection
-   $result->free(); 
+    
    $dblink->close();
 
    return $res;

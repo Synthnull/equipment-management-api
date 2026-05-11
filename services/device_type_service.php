@@ -1,6 +1,7 @@
 <?php
 include_once('database_service.php'); 
 include_once('responce_service.php');
+include_once('data_validation_service.php');
 
 function getAllDeviceTypes() {
    $sql = "SELECT * FROM `device_types`";
@@ -16,7 +17,11 @@ function createNewDeviceType($body) {
    }
 
    $deviceTypeName = $body->device_type_name;
-   
+
+   if(!validateDeviceTypeName($deviceTypeName)) {
+      sendError("Device Type Name Invalid", 'POST', 409);
+   }
+
    $current_types = getAllDeviceTypes();
    
    foreach ($current_types as $types) {

@@ -16,6 +16,10 @@ function createNewManufacturer($body) {
 
    $manufacturerName = $body->manufacturer_name;
    
+   if(!validateManufacturerName($manufacturerName)) {
+      sendError("Manufacturer Name Invalid", 'POST', 409);
+   }
+
    $current_manufacturers = getAllManufacturers();
    
    foreach ($current_manufacturers as $manufacturer) {

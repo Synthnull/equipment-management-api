@@ -42,6 +42,8 @@ switch ($endpoint) {
       if($method != "POST") {
          sendError("Method Not Allowed", $method, 405); 
       }
+      $data = createNewDeviceType($reqData);
+      sendSuccess("Successfully Created New Device Type", 'POST', 201, $data);
       break;
    case 'add_manufacturer':
       if($method != "POST") {

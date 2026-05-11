@@ -16,7 +16,18 @@ function createNewDeviceType($body) {
    }
 
    $deviceTypeName = $body['device_type_name'];
+   
+   $current_types = getAllDeviceTypes();
+   
+   foreach ($current_types as $types) {
+      if($types['device_type_name'] == $deviceTypeName) {
+         sendError("Device Type Already Exists", 'POST', 409);
+      }
+   }
 
-   $sql="Insert into `device_types` (`device_type_name`, `status_id`) values ('$deviceTypeName', '1')";
+   $sql="INSERT INTO `device_types` (`device_type_name`, `status_id`) VALUES ('$deviceTypeName', '1')";
+   $data = query($sql, "POST");
+
+   return $data;
 }
 ?>

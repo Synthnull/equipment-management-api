@@ -11,11 +11,11 @@ function getAllDeviceTypes() {
 
 function createNewDeviceType($body) {
 
-   if(!isset($body['device_type_name']) || $body['device_type_name'] == "") {
+   if(!isset($body->device_type_name) || $body->device_type_name == "") {
       sendError("Invalid Request Body", 'POST', 400);
    }
 
-   $deviceTypeName = $body['device_type_name'];
+   $deviceTypeName = $body->device_type_name;
    
    $current_types = getAllDeviceTypes();
    

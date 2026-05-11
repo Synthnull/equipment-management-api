@@ -5,4 +5,11 @@ function sendError($message, $method, $code) {
    $res = json_encode($resArr);
    echo $res;
 }
+
+function sendSuccess($message, $method, $code, $data) {
+   http_response_code($code);
+   $resArr = array("status"=>"Success", "message" => $message, "data"=>$data, "method"=>$method);
+   $res = json_encode($resArr);
+   echo $res;
+}
 ?>

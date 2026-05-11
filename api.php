@@ -49,7 +49,7 @@ switch ($endpoint) {
       if($method != "POST") {
          sendError("Method Not Allowed", $method, 405); 
       }
-       
+      createNewManufacturer($reqData); 
       break;
    case 'add_equipment':
        if($method != "POST") {

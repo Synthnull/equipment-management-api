@@ -8,7 +8,7 @@ function getAllManufacturers() {
    return $data;
 }
 
-function createNewDeviceType($body) {
+function createNewManufacturer($body) {
 
    if(!isset($body->manufacturer_name) || trim($body->manufacuter_name) == "") {
       sendError("Invalid Request Body", 'POST', 400);

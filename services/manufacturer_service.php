@@ -10,7 +10,7 @@ function getAllManufacturers() {
 
 function createNewManufacturer($body) {
 
-   if(!isset($body->manufacturer_name) || trim($body->manufacuter_name) == "") {
+   if(!isset($body->manufacturer_name) || trim($body->manufacturer_name) == "") {
       sendError("Invalid Request Body", 'POST', 400);
    }
 

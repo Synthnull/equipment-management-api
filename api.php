@@ -1,20 +1,25 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
 header('HTTP/1.1 200 OK');
-include_once('services/error_service.php');
+
+include_once('services/responce_service.php');
+include_once('services/device_type_service.php');
+include_once('services/manufacturer_service.php');
+include_once('services/equipment_service.php');
+
 $url = $_SERVER['REQUEST_URI'];
 $reqUrl = explode("/",trim($url,"/"));
 $method = $_SERVER['REQUEST_METHOD'];
 $endpoint = $reqUrl[1];
 $reqPayload = file_get_contents('php//input'); #read the request body
 $reqData = json_decode($reqPayload);
+
 #endpoints
 switch ($endpoint) {
    case 'list_manufacturers':
       if($method != "GET") {
-      
+         sendError("Method Not Allowed", $method, 405);
       }
-      include('services/manufacturer_service/list_manufacturers.php');
       break;
    case 'list_device_types':
       if($method != "GET") {
@@ -32,18 +37,12 @@ switch ($endpoint) {
       } 
       break;
    case 'add_equipment':
-      break;
-   case 'get_equipment_by_device_type':
-      if($method != "GET") {
+       if($method != "POST") {
          sendError("Method Not Allowed", $method, 405); 
       }
+
       break;
-   case 'get_equipment_by_manufacturer':
-      if($method != "GET") {
-         sendError("Method Not Allowed", $method, 405); 
-      }
-      break;
-   case 'get_equipment_by_serial_number':
+   case 'search_equipment':
       if($method != "GET") {
          sendError("Method Not Allowed", $method, 405); 
       }

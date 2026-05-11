@@ -21,19 +21,22 @@ switch ($endpoint) {
       if($method != "GET") {
          sendError("Method Not Allowed", $method, 405);
       }
-      getAllManufacturers();
+      $data = getAllManufacturers();
+      sendSuccess("Found All Manufacturers", 'GET', 200, $data);
       break;
    case 'get_device_types':
       if($method != "GET") {
          sendError("Method Not Allowed", $method, 405); 
       }
-      getAllDeviceTypes();
+      $data = getAllDeviceTypes();
+      sendSuccess("Found All Device Types", 'GET', 200, $data);
       break;
    case 'get_statuses':
       if($method != "GET") {
          sendError("Method Not Allowed", $method, 405); 
       }
-      getAllStatuses();
+      $data = getAllStatuses();
+      sendSuccess("Found All Statues", 'GET', 200, $data);
       break;
    case 'add_device_type':
       if($method != "POST") {

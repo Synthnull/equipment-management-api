@@ -20,6 +20,7 @@ switch ($endpoint) {
       if($method != "GET") {
          sendError("Method Not Allowed", $method, 405);
       }
+      getAllManufacturers();
       break;
    case 'get_device_types':
       if($method != "GET") {
@@ -35,7 +36,8 @@ switch ($endpoint) {
    case 'add_manufacturer':
       if($method != "POST") {
          sendError("Method Not Allowed", $method, 405); 
-      } 
+      }
+       
       break;
    case 'add_equipment':
        if($method != "POST") {

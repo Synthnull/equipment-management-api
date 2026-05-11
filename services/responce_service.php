@@ -4,6 +4,7 @@ function sendError($message, $method, $code) {
    $resArr = array("status"=>"Error", "message" => $message,"data"=>"", "method"=>$method);
    $res = json_encode($resArr);
    echo $res;
+   die();
 }
 
 function sendSuccess($message, $method, $code, $data) {
@@ -11,5 +12,6 @@ function sendSuccess($message, $method, $code, $data) {
    $resArr = array("status"=>"Success", "message" => $message, "data"=>$data, "method"=>$method);
    $res = json_encode($resArr);
    echo $res;
+   die();
 }
 ?>

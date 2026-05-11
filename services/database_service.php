@@ -20,10 +20,15 @@ function db_connect($db, $method){
 function query($sql, $method) {
    $dblink = db_connect("equipment", $method);
    $result = $dblink->query($sql) or queryFail($method);
-   $res = $result->fetch_all(MYSQLI_ASSOC);
-   
-   #free mysql connection
-   $result->free(); 
+
+   if($method == "GET") {
+      $res = $result->fetch_all(MYSQLI_ASSOC);
+      #free mysql connection
+      $result->free();
+   } else {
+      $res = $dblink->insert_id;
+   }   
+    
    $dblink->close();
 
    return $res;

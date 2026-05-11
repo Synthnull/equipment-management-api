@@ -16,15 +16,16 @@ $reqData = json_decode($reqPayload);
 
 #endpoints
 switch ($endpoint) {
-   case 'list_manufacturers':
+   case 'get_manufacturers':
       if($method != "GET") {
          sendError("Method Not Allowed", $method, 405);
       }
       break;
-   case 'list_device_types':
+   case 'get_device_types':
       if($method != "GET") {
          sendError("Method Not Allowed", $method, 405); 
       }
+      getAllDeviceTypes();
       break;
    case 'add_device_type':
       if($method != "POST") {

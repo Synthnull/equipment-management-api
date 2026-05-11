@@ -26,7 +26,13 @@ function createNewDeviceType($body) {
    }
 
    $sql="INSERT INTO `device_types` (`device_type_name`, `status_id`) VALUES ('$deviceTypeName', '1')";
-   $data = query($sql, "POST");
+   $id = query($sql, "POST");
+   
+   $data = [
+      "device_type_id" => (string)$id,   
+      "device_type_name" => $deviceTypeName,
+      "status_id" => "1"
+   ];
 
    return $data;
 }

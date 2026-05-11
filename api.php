@@ -14,7 +14,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $endpoint = $reqUrl[1];
 $reqPayload = file_get_contents('php//input'); #read the request body
 $reqData = json_decode($reqPayload);
-
+echo json_encode($reqData);
 #endpoints
 switch ($endpoint) {
    case 'get_manufacturers':

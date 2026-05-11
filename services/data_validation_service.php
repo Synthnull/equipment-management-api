@@ -27,4 +27,19 @@ function validateSerialNumber(&$prefix, &$body, $serialNumber) : bool {
    return false;
 }
 
+function validateManufacturerName($manufacturerName) : bool {
+   if(!preg_match('/^[A-Z][a-z\s]+$/', $manufacturerName)) {
+      return false;
+   }
+
+   return true;
+}
+
+function validateDeviceTypeName($deviceTypeName) {
+   if(!preg_match('/^[a-z\s]+$/', $deviceTypeName)) {
+      return false;
+   }
+
+   return true;
+}
 ?>

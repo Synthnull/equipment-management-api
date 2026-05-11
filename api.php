@@ -28,6 +28,12 @@ switch ($endpoint) {
       }
       getAllDeviceTypes();
       break;
+   case 'get_device_types':
+      if($method != "GET") {
+         sendError("Method Not Allowed", $method, 405); 
+      }
+      getAllStatuses();
+      break;
    case 'add_device_type':
       if($method != "POST") {
          sendError("Method Not Allowed", $method, 405); 

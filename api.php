@@ -6,6 +6,7 @@ include_once('services/responce_service.php');
 include_once('services/device_type_service.php');
 include_once('services/manufacturer_service.php');
 include_once('services/equipment_service.php');
+include_once('services/status_service.php');
 
 $url = $_SERVER['REQUEST_URI'];
 $reqUrl = explode("/",trim($url,"/"));

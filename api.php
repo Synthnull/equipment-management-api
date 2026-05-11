@@ -3,10 +3,11 @@ header('Content-Type: application/json; charset=UTF-8');
 header('HTTP/1.1 200 OK');
 include_once('services/error_service.php');
 $url = $_SERVER['REQUEST_URI'];
-$reqPayload = explode("/",trim($url,"/"));
+$reqUrl = explode("/",trim($url,"/"));
 $method = $_SERVER['REQUEST_METHOD'];
-$endpoint = $reqPayload[1];
-
+$endpoint = $reqUrl[1];
+$reqPayload = file_get_contents('php//input'); #read the request body
+$reqData = json_decode($reqPayload);
 #endpoints
 switch ($endpoint) {
    case 'list_manufacturers':
@@ -17,54 +18,49 @@ switch ($endpoint) {
       break;
    case 'list_device_types':
       if($method != "GET") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       }
       break;
    case 'add_device_type':
       if($method != "POST") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       }
       break;
    case 'add_manufacturer':
       if($method != "POST") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       } 
       break;
    case 'add_equipment':
       break;
-   case 'search_by_device_type':
+   case 'get_equipment_by_device_type':
       if($method != "GET") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       }
       break;
-   case 'search_by_manufacturer':
+   case 'get_equipment_by_manufacturer':
       if($method != "GET") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       }
       break;
-   case 'search_by_device_type':
+   case 'get_equipment_by_serial_number':
       if($method != "GET") {
-         sendError("Invalid method", $method, 401); 
-      }
-      break;
-   case 'search_by_serial_number':
-      if($method != "GET") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       }
       break;
    case 'modify_equipment_by_id':
       if($method != "PATCH") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       }
       break;
    case 'modify_device_type_by_id':
       if($method != "PATCH") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       }
       break;
    case 'modify_manufacturer_by_id':
       if($method != "PATCH") {
-         sendError("Invalid method", $method, 401); 
+         sendError("Method Not Allowed", $method, 405); 
       }
       break;
    default:

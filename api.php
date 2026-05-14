@@ -63,6 +63,9 @@ switch ($endpoint) {
       if($method != "GET") {
          sendError("Method Not Allowed", $method, 405); 
       }
+
+      $data = searchEquipment($reqData);
+      sendSuccess("Successfully Searched Equipment", 'POST', 200, $data);
       break;
    case 'modify_equipment_by_id':
       if($method != "PATCH") {

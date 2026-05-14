@@ -63,7 +63,7 @@ function modifyManufacturer($manufacturerId, $body) {
        sendError("Manufacturer Name Already Exists", 'PUT', 409);
    }
    
-   $sql = "UPDATE `manufacturers` SET `status_id`='$status' WHERE `manufacturer_id`='$manufacturerId'";
+   $sql = "UPDATE `manufacturers` SET `status_id`='$status', `manufacturer_name`='$manufacturerName' WHERE `manufacturer_id`='$manufacturerId'";
    $rowsAffected = query($sql, 'PUT');
 
    if($rowsAffected <= 0) {

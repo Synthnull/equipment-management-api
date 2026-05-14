@@ -43,7 +43,7 @@ function createNewEquipment($body) {
       sendError("Device already Exists", "POST", 409); 
    }
 
-   $sql = "INSERT INTO `devices` (`device_type_id`,`manufacturer_id`, `serial_number_prefix`, `serial_number_body`) VALUES ('$deviceType','$manufacturer','$serialPrefix','$serialBody')";
+   $sql = "INSERT INTO `devices` (`device_type_id`,`manufacturer_id`, `serial_number_prefix`, `serial_number_body`, `status_id`) VALUES ('$deviceType','$manufacturer','$serialPrefix','$serialBody', '$statusId')";
    $id = query($sql, "POST");
       
    $data = [

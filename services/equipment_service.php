@@ -47,6 +47,7 @@ function createNewEquipment($body) {
    $id = query($sql, "POST");
       
    $data = [
+      "device_id" => (string)$id,
       "device_type_id" => (string)$deviceType,
       "manufacturer_id" => (string)$manufacturer,   
       "serial_number_prefix" => $serialPrefix,
@@ -124,6 +125,73 @@ function searchEquipment($body) {
    $sql .= " LIMIT 1000 ";
    
    $data = query($sql, "GET");
+
+   return $data;
+}
+
+function modifyEquipment($equipmentId, $body) {
+   $bodyInvalid = false;
+
+   if(!isset($body->device_type_id) || trim($body->device_type_id) == "") {
+      $bodyInvalid = true;
+   }
+
+   if(!isset($body->manufacturer_id) || trim($body->manufacturer_id) == "") {
+      $bodyInvalid = true;
+   }
+
+   if(!isset($body->serial_number) || trim($body->serial_number) == "") {
+      $bodyInvalid = true;
+   }
+
+   if(!isset($body->status_id) || trim($body->status_id) == "") {
+      $bodyInvalid = true;
+   }
+
+   if($bodyInvalid) {
+      sendError("One Or More Parameters Are Missing From The Request", "POST", 400);
+   }
+   
+   $deviceType = $body->device_type_id;
+   $manufacturer = $body->device_type_id;
+   $serialNumber = $body->serial_number;
+   $statusId = $body->status_id;
+   
+   $serialPrefix = "";
+   $serialBody = "";
+
+   if(validateSerialNumber($serialPrefix, $serialBody, $serialNumber)) {
+      sendError("Invalid Serial Number", "POST", 400);
+   }
+
+   $sql="SELECT `device_id` FROM `devices` where `serial_number_body`='$serialBody' and `serial_number_prefix`='$serialPrefix' and `device_id` !='" . $equipmentId . "'";
+   $data = query($sql, "GET");
+   if (count($data) > 0) { 
+      sendError("Serial Number is previously taken", "POST", 409);
+   }
+
+   $sql="UPDATE `devices` SET 
+        `device_type_id` = '$deviceType',
+        `manufacturer_id` = '$manufacturer',
+        `status_id` = '$statusId',
+        `serial_number_prefix` = '$serialPrefix',
+        `serial_number_body` = '$serialBody'
+        WHERE `device_id` ='" . $equipmentId . "'";
+   
+   $affectedRows = query($sql, "PUT");
+
+   if($affectedRows <= 0) {
+      sendError("No Equipment Updated", "PATCH", 204);
+   }
+
+   $data = [
+      "device_id" => (string)$equipmentId,
+      "device_type_id" => (string)$deviceType,
+      "manufacturer_id" => (string)$manufacturer,   
+      "serial_number_prefix" => $serialPrefix,
+      "serial_number_body" => $serialBody,
+      "status_id" => (string)$statusId
+   ];
 
    return $data;
 }

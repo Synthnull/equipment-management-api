@@ -153,7 +153,7 @@ function modifyEquipmentById($equipmentId, $body) {
    }
    
    $deviceType = $body->device_type_id;
-   $manufacturer = $body->device_type_id;
+   $manufacturer = $body->manufacturer_id;
    $serialNumber = $body->serial_number;
    $statusId = $body->status_id;
    

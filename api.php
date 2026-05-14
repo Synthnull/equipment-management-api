@@ -91,7 +91,7 @@ switch ($endpoint) {
       $deviceTypeId = $reqUrl[2];
 
       $data = modifyDeviceType($deviceTypeId, $reqData);
-      sendSuccess("Successfully Modified Device Type", 'PUT', 200);
+      sendSuccess("Successfully Modified Device Type", 'PUT', 200, $data);
       break;
    case 'modify_manufacturer_by_id':
       if($method != "PUT") {

@@ -56,4 +56,75 @@ function createNewEquipment($body) {
 
    return $data;
 }
+
+function searchEquipment($body) {
+   if(!isset($body->device_type_id) || trim($body->device_type_id) == "") {
+      $deviceType = 0;
+   }else {
+      $deviceType = $body->device_type_id;
+   }
+
+   if(!isset($body->manufacturer_id) || trim($body->manufacturer_id) == "") {
+      $manufacturer = 0;
+   } else {
+      $manufacturer = $body->manufacturer_id;
+   }
+
+   if(!isset($body->serial_number) || trim($body->serial_number) == "") {
+      $serialNumber = 0;
+   } else {
+      $serialNumber = $body->serial_number;
+   }
+
+   if(!isset($body->status_id) || trim($body->status_id) == "") {
+      $status = 0;
+   } else {
+      $status = $body->status;
+   }
+
+   $serialPrefix = "";
+   $serialBody = "";
+   if($serialNumber) {
+      validateSerialNumber($serialPrefix, $serialBody, $serialNumber);
+   }
+   $sql = 'SELECT
+   d.device_id,
+   d.status_id,
+   m.manufacturer_name, 
+   dt.device_type_name, 
+   d.serial_number_prefix, 
+   d.serial_number_body,
+   s.status_name
+   FROM devices AS d';
+
+   $sql .= ' JOIN manufacturers AS m ON d.manufacturer_id = m.manufacturer_id
+   JOIN device_types AS dt ON d.device_type_id = dt.device_type_id
+   JOIN status AS s ON d.status_id = s.status_id
+   WHERE 1=1';
+
+   if($deviceType != 0) {
+     $sql .= " AND d.device_type_id='$deviceType' AND dt.status_id = '1'";
+   }else {
+     $sql .= " AND dt.status_id='1'";
+   }
+
+   if($manufacturer != 0) {
+     $sql .= " AND d.manufacturer_id='$manufacturer' AND m.status_id = '1'";
+   } else {
+     $sql .= " AND m.status_id='1'";
+   }
+
+   if($serialNumber) {
+     $sql .= " AND d.serial_number_body='$serialBody' AND d.serial_number_prefix='$serialPrefix'";
+   }
+   if($status != 0) {
+     $sql .= " AND d.status_id='$status'";
+   }
+   
+   $sql .= " LIMIT 1000 ";
+   
+   $data = query($sql, "GET");
+
+   return $data;
+}
 ?>

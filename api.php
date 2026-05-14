@@ -53,10 +53,11 @@ switch ($endpoint) {
       sendSuccess("Successfully Created New Manufacturer", 'POST', 201, $data);
       break;
    case 'add_equipment':
-       if($method != "POST") {
+      if($method != "POST") {
          sendError("Method Not Allowed", $method, 405); 
       }
-
+      $data = createNewEquipment($reqData);
+      sendSuccess("Successfully Created New Equipment", 'POST', 201, $data);   
       break;
    case 'search_equipment':
       if($method != "GET") {

@@ -44,8 +44,16 @@ function createNewEquipment($body) {
    }
 
    $sql = "INSERT INTO `devices` (`device_type_id`,`manufacturer_id`, `serial_number_prefix`, `serial_number_body`) VALUES ('$deviceType','$manufacturer','$serialPrefix','$serialBody')";
-   $data = query($sql, "POST");
-   
+   $id = query($sql, "POST");
+      
+   $data = [
+      "device_type_id" => (string)$deviceType,
+      "manufacturer_id" => (string)$manufacturer,   
+      "serial_number_prefix" => $serialPrefix,
+      "serial_number_body" => $serialBody,
+      "status_id" => (string)$statusId,
+   ];
+
    return $data;
 }
 ?>

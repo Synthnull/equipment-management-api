@@ -79,7 +79,7 @@ function searchEquipment($body) {
    if(!isset($body->status_id) || trim($body->status_id) == "") {
       $status = 0;
    } else {
-      $status = $body->status;
+      $status = $body->status_id;
    }
 
    $serialPrefix = "";

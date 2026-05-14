@@ -72,7 +72,7 @@ switch ($endpoint) {
       if($method != "PUT") {
          sendError("Method Not Allowed", $method, 405); 
       }
-      if(count($reqUrl) != 3) {
+      if(count($reqUrl) != 3 || trim($reqUrl[2]) == "") {
          sendError("Missing Equipment Id In URL", 'PUT', 400);
       }
       $equipmentId = $reqUrl[2];
@@ -84,11 +84,27 @@ switch ($endpoint) {
       if($method != "PUT") {
          sendError("Method Not Allowed", $method, 405); 
       }
+
+      if(count($reqUrl) != 3 || trim($reqUrl[2]) == "") {
+         sendError("Missing Device Type Id In URL", 'PUT', 400);
+      }
+      $deviceTypeId = $reqUrl[2];
+
+      $data = modifyDeviceType($deviceTypeId, $reqData);
+      sendSuccess("Successfully Modified Device Type", 'PUT', 200, $data);
       break;
    case 'modify_manufacturer_by_id':
       if($method != "PUT") {
          sendError("Method Not Allowed", $method, 405); 
       }
+
+      if(count($reqUrl) != 3 || trim($reqUrl[2]) == "") {
+         sendError("Missing Manufacturer Id In URL", 'PUT', 400);
+      }
+      $manufacturerId = $reqUrl[2];
+
+      $data = modifyManufacturer($manufacturerId, $reqData);
+      sendSuccess("Successfully Modified Manufacturer", 'PUT', 200, $data);
       break;
    default:
       sendError("Requested Endpoint Does Not Exist", $method, 404); 

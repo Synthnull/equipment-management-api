@@ -149,7 +149,7 @@ function modifyEquipment($equipmentId, $body) {
    }
 
    if($bodyInvalid) {
-      sendError("One Or More Parameters Are Missing From The Request", "POST", 400);
+      sendError("One Or More Parameters Are Missing From The Request", "PUT", 400);
    }
    
    $deviceType = $body->device_type_id;
@@ -161,13 +161,13 @@ function modifyEquipment($equipmentId, $body) {
    $serialBody = "";
 
    if(validateSerialNumber($serialPrefix, $serialBody, $serialNumber)) {
-      sendError("Invalid Serial Number", "POST", 400);
+      sendError("Invalid Serial Number", "PUT", 400);
    }
 
    $sql="SELECT `device_id` FROM `devices` where `serial_number_body`='$serialBody' and `serial_number_prefix`='$serialPrefix' and `device_id` !='" . $equipmentId . "'";
    $data = query($sql, "GET");
    if (count($data) > 0) { 
-      sendError("Serial Number is previously taken", "POST", 409);
+      sendError("Serial Number is previously taken", "PUT", 409);
    }
 
    $sql="UPDATE `devices` SET 
@@ -181,7 +181,7 @@ function modifyEquipment($equipmentId, $body) {
    $affectedRows = query($sql, "PUT");
 
    if($affectedRows <= 0) {
-      sendError("No Equipment Updated", "PATCH", 204);
+      sendError("No Equipment Updated", "PUT", 204);
    }
 
    $data = [

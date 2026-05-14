@@ -93,7 +93,7 @@ switch ($endpoint) {
       $manufacturerId = $reqUrl[2];
 
       $data = modifyManufacturer($manufacturerId, $reqData);
-      sendSuccess("Successfully Modified Manufacturer", 'PUT', 200);
+      sendSuccess("Successfully Modified Manufacturer", 'PUT', 200, $data);
       break;
    default:
       sendError("Requested Endpoint Does Not Exist", $method, 404); 

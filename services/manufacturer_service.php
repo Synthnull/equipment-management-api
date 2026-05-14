@@ -29,7 +29,7 @@ function createNewManufacturer($body) {
    }
 
    $sql = "INSERT INTO `manufacturers` (`manufacturer_name`, `status_id`) VALUES ('$manufacturerName', '1')";
-   $id = query($sql, "POST");
+   $id = query($sql, 'POST');
    
    $data = [
       "manufacturer_id" => (string)$id,   

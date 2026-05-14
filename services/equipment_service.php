@@ -36,7 +36,6 @@ function createNewEquipment($body) {
       sendError("Invalid Serial Number", "POST", 400);
    }
 
-   validateSerialNumber($serialPrefix, $serialBody, $serialNumber);
    $sql = "SELECT `device_id` FROM `devices` WHERE `serial_number_body`='$serialBody' AND `serial_number_prefix`='$serialPrefix'";
    $data = query($sql, "POST");
 

@@ -81,6 +81,8 @@ switch ($endpoint) {
       sendSuccess("Successfully Modified Equipment", 'PUT', 200, $data);
       break;
    case 'modify_device_type_by_id':
+      break;
+   case 'modify_manufacturer_by_id':
       if($method != "PUT") {
          sendError("Method Not Allowed", $method, 405); 
       }
@@ -92,11 +94,6 @@ switch ($endpoint) {
 
       $data = modifyManufacturer($manufacturerId, $reqData);
       sendSuccess("Successfully Modified Manufacturer", 'PUT', 200);
-      break;
-   case 'modify_manufacturer_by_id':
-      if($method != "PUT") {
-         sendError("Method Not Allowed", $method, 405); 
-      }
       break;
    default:
       sendError("Requested Endpoint Does Not Exist", $method, 404); 

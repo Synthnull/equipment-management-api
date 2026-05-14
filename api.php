@@ -77,7 +77,7 @@ switch ($endpoint) {
       }
       $equipmentId = $reqUrl[2];
 
-      $data = modifyEquipment($equipmentId, $reqData);
+      $data = modifyEquipmentById($equipmentId, $reqData);
       sendSuccess("Successfully Modified Equipment", 'PUT', 200, $data);
       break;
    case 'modify_device_type_by_id':
@@ -105,6 +105,19 @@ switch ($endpoint) {
 
       $data = modifyManufacturer($manufacturerId, $reqData);
       sendSuccess("Successfully Modified Manufacturer", 'PUT', 200, $data);
+      break;
+   case 'get_equipment_by_id':
+      if($method != "GET") {
+         sendError("Method Not Allowed", $method, 405); 
+      }
+
+      if(count($reqUrl) != 3 || trim($reqUrl[2]) == "") {
+         sendError("Missing Equipment Id In URL", 'GET', 400);
+      }
+      $equipmentId = $reqUrl[2];
+      $data = getEquipmentById($equipmentId);
+
+      sendSuccess("Successfully Got Equipment", 'GET', 200, $data);
       break;
    default:
       sendError("Requested Endpoint Does Not Exist", $method, 404); 

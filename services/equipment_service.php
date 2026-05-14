@@ -129,7 +129,7 @@ function searchEquipment($body) {
    return $data;
 }
 
-function modifyEquipment($equipmentId, $body) {
+function modifyEquipmentById($equipmentId, $body) {
    $bodyInvalid = false;
 
    if(!isset($body->device_type_id) || trim($body->device_type_id) == "") {
@@ -193,6 +193,27 @@ function modifyEquipment($equipmentId, $body) {
       "status_id" => (string)$statusId
    ];
 
+   return $data;
+}
+
+function getEquipmentById($equipmentId) {
+   $sql = 'SELECT
+   d.device_id,
+   d.status_id,
+   m.manufacturer_name, 
+   dt.device_type_name, 
+   d.serial_number_prefix, 
+   d.serial_number_body,
+   s.status_name
+   FROM devices AS d';
+
+   $sql .= ' JOIN manufacturers AS m ON d.manufacturer_id = m.manufacturer_id
+   JOIN device_types AS dt ON d.device_type_id = dt.device_type_id
+   JOIN status AS s ON d.status_id = s.status_id
+   WHERE d.device_id=' . $equipmentId;
+
+   $data = query($sql, 'GET');
+   
    return $data;
 }
 ?>

@@ -66,7 +66,7 @@ switch ($endpoint) {
       }
 
       $data = searchEquipment($reqData);
-      sendSuccess("Successfully Searched Equipment", 'POST', 200, $data);
+      sendSuccess("Successfully Searched Equipment", 'GET', 200, $data);
       break;
    case 'modify_equipment_by_id':
       if($method != "PUT") {

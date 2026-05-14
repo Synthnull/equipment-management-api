@@ -56,6 +56,7 @@ switch ($endpoint) {
       if($method != "POST") {
          sendError("Method Not Allowed", $method, 405); 
       }
+
       $data = createNewEquipment($reqData);
       sendSuccess("Successfully Created New Equipment", 'POST', 201, $data);   
       break;
@@ -65,20 +66,27 @@ switch ($endpoint) {
       }
 
       $data = searchEquipment($reqData);
-      sendSuccess("Successfully Searched Equipment", 'POST', 200, $data);
+      sendSuccess("Successfully Searched Equipment", 'GET', 200, $data);
       break;
    case 'modify_equipment_by_id':
-      if($method != "PATCH") {
+      if($method != "PUT") {
          sendError("Method Not Allowed", $method, 405); 
       }
+      if(count($reqUrl) != 3) {
+         sendError("Missing Equipment Id In URL", 'PUT', 400);
+      }
+      $equipmentId = $reqUrl[2];
+
+      $data = modifyEquipment($equipmentId, $reqData);
+      sendSuccess("Successfully Modified Equipment", 'PUT', 200, $data);
       break;
    case 'modify_device_type_by_id':
-      if($method != "PATCH") {
+      if($method != "PUT") {
          sendError("Method Not Allowed", $method, 405); 
       }
       break;
    case 'modify_manufacturer_by_id':
-      if($method != "PATCH") {
+      if($method != "PUT") {
          sendError("Method Not Allowed", $method, 405); 
       }
       break;

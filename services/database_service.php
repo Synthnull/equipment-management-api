@@ -25,6 +25,8 @@ function query($sql, $method) {
       $res = $result->fetch_all(MYSQLI_ASSOC);
       #free mysql connection
       $result->free();
+   } else if($method == "PUT"){
+      $res = $dblink->affected_rows;
    } else {
       $res = $dblink->insert_id;
    }   

@@ -37,7 +37,7 @@ function createNewEquipment($body) {
    }
 
    $sql = "SELECT `device_id` FROM `devices` WHERE `serial_number_body`='$serialBody' AND `serial_number_prefix`='$serialPrefix'";
-   $data = query($sql, "GET"); #TODO: internally call the search service when its created
+   $data = query($sql, "GET");
 
    if(count($data) > 0) {
       sendError("Device already Exists", "POST", 409); 

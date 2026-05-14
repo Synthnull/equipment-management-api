@@ -81,6 +81,17 @@ switch ($endpoint) {
       sendSuccess("Successfully Modified Equipment", 'PUT', 200, $data);
       break;
    case 'modify_device_type_by_id':
+      if($method != "PUT") {
+         sendError("Method Not Allowed", $method, 405); 
+      }
+
+      if(count($reqUrl) != 3) {
+         sendError("Missing Device Type Id In URL", 'PUT', 400);
+      }
+      $deviceTypeId = $reqUrl[2];
+
+      $data = modifyDeviceType($deviceTypeId, $reqData);
+      sendSuccess("Successfully Modified Device Type", 'PUT', 200);
       break;
    case 'modify_manufacturer_by_id':
       if($method != "PUT") {
